@@ -21,7 +21,11 @@ export class PaisComponent {
   cargarPaises(): void{
     this.paisesService.obtenerPaises().subscribe({
       next: (data)=>{
-        this.paises.set(data);
+        const paisesOrdenados = data.sort((a,b)=>
+          a.name.common.localeCompare(b.name.common)
+        )
+        this.paises.set(paisesOrdenados)
+        //this.paises.set(data);
         this.cargando.set(false);
       },
       error: (err)=>{
